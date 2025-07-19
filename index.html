@@ -1,103 +1,1225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Frincu Luca | Game Designer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #111;
-      color: #f0f0f0;
-    }
-    header, footer {
-      text-align: center;
-      padding: 2rem;
-      background: #1a1a1a;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2.5rem;
-    }
-    p {
-      font-size: 1.1rem;
-      color: #ccc;
-    }
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
-    }
-    .project {
-      background: #222;
-      padding: 1rem;
-      border-radius: 10px;
-    }
-    .project h3 {
-      margin-top: 0;
-    }
-    .project a {
-      color: #00bfff;
-      text-decoration: none;
-    }
-    .socials {
-      margin-top: 1rem;
-    }
-    .socials a {
-      margin: 0 0.5rem;
-      color: #00bfff;
-      text-decoration: none;
-    }
-    footer {
-      font-size: 0.9rem;
-      color: #777;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luca Frincu | Game & Level Designer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6e57e0;
+            --primary-dark: #4d3bb7;
+            --secondary: #2dd4bf;
+            --dark: #1e293b;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode {
+            background-color: var(--darker);
+            color: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        body.dark-mode header {
+            background-color: rgba(15, 23, 42, 0.9);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo span {
+            color: var(--dark);
+        }
+        
+        body.dark-mode .logo span {
+            color: var(--light);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .nav-links a {
+            color: var(--light);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--dark);
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .theme-toggle {
+            color: var(--light);
+        }
+        
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+        
+        body.dark-mode .hamburger {
+            color: var(--light);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(110, 87, 224, 0.1) 0%, rgba(45, 212, 191, 0.1) 100%);
+            z-index: -1;
+        }
+        
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .hero-text {
+            flex: 1;
+        }
+        
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow-xl);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero h1 span {
+            color: var(--primary);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+        
+        body.dark-mode .hero p {
+            color: var(--gray);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(110, 87, 224, 0.4);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(110, 87, 224, 0.6);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(110, 87, 224, 0.6);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            border-radius: 100%;
+            transform: scale(1, 1) translate(-50%);
+            transform-origin: 50% 50%;
+        }
+        
+        .btn:focus:not(:active)::after {
+            animation: ripple 1s ease-out;
+        }
+        
+        @keyframes ripple {
+            0% {
+                transform: scale(0, 0);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(20, 20);
+                opacity: 0;
+            }
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--light);
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        body.dark-mode .social-links a {
+            background-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 6rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary);
+            border-radius: 10px;
+            z-index: -1;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+        
+        .skills {
+            margin-top: 2rem;
+        }
+        
+        .skills h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .skill {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .project-card {
+            background-color: var(--dark);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .project-media {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .project-media img, .project-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .project-card:hover .project-media img, 
+        .project-card:hover .project-media video {
+            transform: scale(1.05);
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .project-info h3 {
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+        
+        .project-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tag {
+            background-color: var(--secondary);
+            color: var(--darker);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .project-links a:hover {
+            color: var(--primary-dark);
+        }
+        
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, rgba(110, 87, 224, 0.05) 0%, rgba(45, 212, 191, 0.05) 100%);
+        }
+        
+        .contact-content {
+            display: flex;
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info p {
+            margin-bottom: 2rem;
+        }
+        
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.2rem;
+        }
+        
+        .contact-text h4 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .contact-text a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .contact-text a:hover {
+            text-decoration: underline;
+        }
+        
+        .contact-form {
+            flex: 1;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        body.dark-mode .contact-form {
+            background-color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .form-control {
+            background-color: var(--darker);
+            border-color: var(--dark);
+            color: var(--light);
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(110, 87, 224, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .footer-social a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-social a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content, .about-content, .contact-content {
+                flex-direction: column;
+            }
+            
+            .hero-text, .hero-image, .about-text, .about-image, .contact-info, .contact-form {
+                flex: none;
+                width: 100%;
+            }
+            
+            .hero-image, .about-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: var(--transition);
+                z-index: 999;
+            }
+            
+            body.dark-mode .nav-links {
+                background-color: var(--darker);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Luca<span>Frincu</span></a>
+                <div class="nav-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburger">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
 
-  <header>
-    <h1>Luca Frincu</h1>
-    <p>Game Designer · Level Design · World Building</p>
-  </header>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text fade-in">
+                    <h1>Hi, I'm <span>Luca Frincu</span></h1>
+                    <p>Game & Level Designer passionate about creating immersive worlds and engaging gameplay experiences.</p>
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View My Work</a>
+                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/LucaFrincu" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/luca-frincu/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:lucafrincu47@gmail.com"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="hero-image fade-in">
+                    <!-- Replace with your profile picture -->
+                    <img src="https://via.placeholder.com/500x500" alt="Luca Frincu">
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="projects">
-    <div class="project">
-      <h3>Project 1: Haunted Streets</h3>
-      <p>A first-person horror level set in a tight Mediterranean city. Focuses on atmospheric lighting and narrative clues.</p>
-      <a href="#">View Demo</a>
-    </div>
-    <div class="project">
-      <h3>Project 2: Titan Arena</h3>
-      <p>Multiplayer arena level for a sci-fi shooter. Designed for fast-paced combat and verticality.</p>
-      <a href="#">View Demo</a>
-    </div>
-    <div class="project">
-      <h3>Project 3: Forgotten Temple</h3>
-      <p>Third-person puzzle adventure level. Emphasis on spatial flow and environmental storytelling.</p>
-      <a href="#">View Demo</a>
-    </div>
-    <div class="project">
-      <h3>Project 4: Stealth Metro</h3>
-      <p>Level focused on stealth mechanics and patrol AI, set in an abandoned Eastern European subway station.</p>
-      <a href="#">View Demo</a>
-    </div>
-  </section>
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Me</h2>
+                <p>Get to know more about my background, skills, and what drives me as a game designer.</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image fade-in">
+                    <!-- Replace with your about picture -->
+                    <img src="https://via.placeholder.com/500x600" alt="About Luca">
+                </div>
+                <div class="about-text fade-in">
+                    <h3>Game & Level Designer</h3>
+                    <p>I'm a passionate game designer specializing in level design and gameplay mechanics. With a keen eye for detail and a love for storytelling through environments, I create immersive worlds that engage players and enhance their gaming experience.</p>
+                    <p>My approach combines technical skills with creative vision, ensuring that each level I design not only looks great but also plays well, guiding players naturally through the intended experience.</p>
+                    
+                    <div class="skills">
+                        <h4>Skills & Expertise</h4>
+                        <div class="skills-list">
+                            <span class="skill">Level Design</span>
+                            <span class="skill">Game Mechanics</span>
+                            <span class="skill">Unreal Engine</span>
+                            <span class="skill">Unity</span>
+                            <span class="skill">3D Modeling</span>
+                            <span class="skill">Prototyping</span>
+                            <span class="skill">Scripting</span>
+                            <span class="skill">Game Balancing</span>
+                            <span class="skill">Environmental Storytelling</span>
+                            <span class="skill">Player Psychology</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="socials" style="text-align: center;">
-    <h3>Connect with me</h3>
-    <a href="https://github.com/LucaFrincu" target="_blank">GitHub</a>
-    <a href="mailto:lucafrincu47@gmail.com">Email</a>
-    <a href="https://www.linkedin.com/in/luca-frincu/" target="_blank">LinkedIn</a>
-  </section>
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="container">
+            <div class="section-title">
+                <h2>My Projects</h2>
+                <p>Here are some of my recent game and level design projects.</p>
+            </div>
+            <div class="projects-grid">
+                <!-- The Monster -->
+                <div class="project-card fade-in">
+                    <div class="project-media">
+                        <!-- Replace with your game screenshot or video -->
+                        <img src="https://via.placeholder.com/600x400" alt="The Monster">
+                    </div>
+                    <div class="project-info">
+                        <h3>The Monster</h3>
+                        <p>A horror game created during a game jam where I served as the level designer, crafting tense environments that enhanced the horror experience.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Game Jam</span>
+                            <span class="project-tag">Horror</span>
+                            <span class="project-tag">Level Design</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://defranco.itch.io/the-monster" target="_blank"><i class="fas fa-gamepad"></i> Play Game</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- The Mansion -->
+                <div class="project-card fade-in">
+                    <div class="project-media">
+                        <!-- Replace with your level design screenshots -->
+                        <img src="https://via.placeholder.com/600x400" alt="The Mansion">
+                    </div>
+                    <div class="project-info">
+                        <h3>The Mansion</h3>
+                        <p>A detailed mansion level with multiple paths, secrets, and environmental storytelling elements that reveal the backstory of its inhabitants.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Level Design</span>
+                            <span class="project-tag">Environmental Storytelling</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Eastern Front -->
+                <div class="project-card fade-in">
+                    <div class="project-media">
+                        <!-- Replace with your level design screenshots -->
+                        <img src="https://via.placeholder.com/600x400" alt="Eastern Front">
+                    </div>
+                    <div class="project-info">
+                        <h3>Eastern Front</h3>
+                        <p>A war-themed level featuring large-scale combat scenarios with strategic chokepoints and multiple approaches to objectives.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Level Design</span>
+                            <span class="project-tag">Combat Design</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mediterranean City -->
+                <div class="project-card fade-in">
+                    <div class="project-media">
+                        <!-- Replace with your WIP screenshots or video -->
+                        <video autoplay loop muted>
+                            <source src="your-video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="project-info">
+                        <h3>Mediterranean City (WIP)</h3>
+                        <p>My dissertation project featuring a Mediterranean city with narrow streets and enterable buildings, focusing on creating an authentic, lived-in environment.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Dissertation</span>
+                            <span class="project-tag">Environment Design</span>
+                            <span class="project-tag">WIP</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Boba for Bobers -->
+                <div class="project-card fade-in">
+                    <div class="project-media">
+                        <!-- Replace with your game jam screenshots -->
+                        <img src="https://via.placeholder.com/600x400" alt="Boba for Bobers">
+                    </div>
+                    <div class="project-info">
+                        <h3>Boba for Bobers</h3>
+                        <p>A fun, quirky game created during The Global Game Jam with unique mechanics centered around boba tea.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Game Jam</span>
+                            <span class="project-tag">Casual</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#"><i class="fas fa-gamepad"></i> Play Game</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <footer>
-    <p>© 2025 Luca Frincu | Game Design Portfolio</p>
-  </footer>
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Feel free to reach out for collaborations or just to say hello!</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info fade-in">
+                    <h3>Let's Talk About Your Project</h3>
+                    <p>I'm always interested in hearing about new opportunities and collaborations. Whether you have a question or just want to say hi, I'll try my best to get back to you!</p>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Email</h4>
+                                <a href="mailto:lucafrincu47@gmail.com">lucafrincu47@gmail.com</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin-in"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>LinkedIn</h4>
+                                <a href="https://www.linkedin.com/in/luca-frincu/" target="_blank">linkedin.com/in/luca-frincu</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-text">
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/LucaFrincu" target="_blank">github.com/LucaFrincu</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form fade-in">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <a href="#" class="footer-logo">LucaFrincu</a>
+                
+                <div class="footer-links">
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <div class="footer-social">
+                    <a href="https://github.com/LucaFrincu" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/luca-frincu/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="mailto:lucafrincu47@gmail.com"><i class="fas fa-envelope"></i></a>
+                </div>
+                
+                <p class="copyright">© <span id="year"></span> Luca Frincu. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
+    <!-- JavaScript -->
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const savedTheme = localStorage.getItem('theme') || 
+                           (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        if (savedTheme === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Mobile Navigation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+        
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Here you would typically send the form data to a server
+            // For now, we'll just show an alert
+            alert('Thank you for your message! I will get back to you soon.');
+            contactForm.reset();
+        });
+        
+        // Intersection Observer for scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+            element.style.opacity = 0;
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    </script>
 </body>
-</html> 
+</html>
