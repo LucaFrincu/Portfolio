@@ -330,7 +330,125 @@
             box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4);
         }
         
-        /* [Rest of your CSS remains the same...] */
+        /* Project Cards */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .project-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        body.dark-mode .project-card {
+            background-color: var(--dark);
+        }
+        
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .project-media {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .project-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-media img {
+            transform: scale(1.1);
+        }
+
+        /* WIP Overlay */
+        .wip-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Project Subtitle */
+        .project-subtitle {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: -0.5rem;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+        }
+        
+        .project-info h3 {
+            margin-bottom: 0.25rem;
+            font-size: 1.3rem;
+        }
+        
+        .project-info p {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-tag {
+            background-color: var(--secondary);
+            color: var(--darker);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .project-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .project-links a:hover {
+            color: var(--primary-dark);
+        }
         
         /* About Section */
         .section {
@@ -404,97 +522,6 @@
             border-radius: 50px;
             font-size: 0.9rem;
             font-weight: 500;
-        }
-        
-        /* Projects Section */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .project-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-        }
-        
-        body.dark-mode .project-card {
-            background-color: var(--dark);
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-xl);
-        }
-        
-        .project-media {
-            height: 200px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .project-media img, .project-media video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition);
-        }
-        
-        .project-card:hover .project-media img, 
-        .project-card:hover .project-media video {
-            transform: scale(1.05);
-        }
-        
-        .project-info {
-            padding: 1.5rem;
-        }
-        
-        .project-info h3 {
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-        
-        .project-info p {
-            color: var(--gray);
-            margin-bottom: 1rem;
-        }
-        
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .project-tag {
-            background-color: var(--secondary);
-            color: var(--darker);
-            padding: 0.3rem 0.8rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .project-links {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .project-links a {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-        
-        .project-links a:hover {
-            color: var(--primary-dark);
         }
         
         /* Footer */
@@ -759,18 +786,19 @@
                 <!-- The Monster -->
                 <div class="project-card fade-in">
                     <div class="project-media">
-                        <img src="https://via.placeholder.com/600x400" alt="The Monster">
+                        <img src="Images/the-monster-thumb.jpg" alt="The Monster Screenshot">
                     </div>
                     <div class="project-info">
                         <h3>The Monster</h3>
-                        <p>A horror game created during a game jam where I served as the level designer, crafting tense environments that enhanced the horror experience.</p>
+                        <p>A horror game created during a game jam where I served as the level designer.</p>
                         <div class="project-tags">
                             <span class="project-tag">Game Jam</span>
                             <span class="project-tag">Horror</span>
-                            <span class="project-tag">Level Design</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://defranco.itch.io/the-monster" target="_blank"><i class="fas fa-gamepad"></i> Play Game</a>
+                            <a href="https://defranco.itch.io/the-monster" target="_blank">
+                                <i class="fas fa-gamepad"></i> Play Game
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -778,17 +806,19 @@
                 <!-- The Mansion -->
                 <div class="project-card fade-in">
                     <div class="project-media">
-                        <img src="https://via.placeholder.com/600x400" alt="The Mansion">
+                        <img src="Images/the-mansion-thumb.jpg" alt="The Mansion Level Design">
                     </div>
                     <div class="project-info">
                         <h3>The Mansion</h3>
-                        <p>A detailed mansion level with multiple paths, secrets, and environmental storytelling elements that reveal the backstory of its inhabitants.</p>
+                        <p>A detailed mansion level with environmental storytelling elements.</p>
                         <div class="project-tags">
                             <span class="project-tag">Level Design</span>
-                            <span class="project-tag">Environmental Storytelling</span>
+                            <span class="project-tag">Unreal Engine</span>
                         </div>
                         <div class="project-links">
-                            <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                            <a href="#theMansionModal" class="view-gallery">
+                                <i class="fas fa-images"></i> View Gallery
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -796,17 +826,20 @@
                 <!-- Eastern Front -->
                 <div class="project-card fade-in">
                     <div class="project-media">
-                        <img src="https://via.placeholder.com/600x400" alt="Eastern Front">
+                        <img src="Images/eastern-front-thumb.jpg" alt="Eastern Front Level">
                     </div>
                     <div class="project-info">
                         <h3>Eastern Front</h3>
-                        <p>A war-themed level featuring large-scale combat scenarios with strategic chokepoints and multiple approaches to objectives.</p>
+                        <p class="project-subtitle">Bachelor's Project</p>
+                        <p>War-themed level with strategic combat scenarios.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Level Design</span>
                             <span class="project-tag">Combat Design</span>
+                            <span class="project-tag">Unity</span>
                         </div>
                         <div class="project-links">
-                            <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                            <a href="#easternFrontModal" class="view-gallery">
+                                <i class="fas fa-images"></i> View Gallery
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -814,18 +847,21 @@
                 <!-- Mediterranean City -->
                 <div class="project-card fade-in">
                     <div class="project-media">
-                        <img src="https://via.placeholder.com/600x400" alt="Mediterranean City">
+                        <img src="Images/mediterranean-city-thumb.jpg" alt="Mediterranean City WIP">
+                        <div class="wip-overlay">Work in Progress</div>
                     </div>
                     <div class="project-info">
-                        <h3>Mediterranean City (WIP)</h3>
-                        <p>My dissertation project featuring a Mediterranean city with narrow streets and enterable buildings, focusing on creating an authentic, lived-in environment.</p>
+                        <h3>Mediterranean City</h3>
+                        <p class="project-subtitle">Dissertation Project</p>
+                        <p>Authentic Mediterranean city environment with narrow streets and enterable buildings.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Dissertation</span>
-                            <span class="project-tag">Environment Design</span>
+                            <span class="project-tag">Environment</span>
                             <span class="project-tag">WIP</span>
                         </div>
                         <div class="project-links">
-                            <a href="#"><i class="fas fa-images"></i> Gallery</a>
+                            <a href="#mediterraneanModal" class="view-gallery">
+                                <i class="fas fa-images"></i> View Gallery
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -833,17 +869,22 @@
                 <!-- Boba for Bobers -->
                 <div class="project-card fade-in">
                     <div class="project-media">
-                        <img src="https://via.placeholder.com/600x400" alt="Boba for Bobers">
+                        <img src="Images/boba-bobers-thumb.jpg" alt="Boba for Bobers Game">
                     </div>
                     <div class="project-info">
                         <h3>Boba for Bobers</h3>
-                        <p>A fun, quirky game created during The Global Game Jam with unique mechanics centered around boba tea.</p>
+                        <p>Global Game Jam entry with boba tea mechanics.</p>
                         <div class="project-tags">
                             <span class="project-tag">Game Jam</span>
                             <span class="project-tag">Casual</span>
                         </div>
                         <div class="project-links">
-                            <a href="https://gravitylens.itch.io/boba-for-bobers" target="_blank"><i class="fas fa-gamepad"></i> Play Game</a>
+                            <a href="https://gravitylens.itch.io/boba-for-bobers" target="_blank">
+                                <i class="fas fa-gamepad"></i> Play Game
+                            </a>
+                            <a href="#bobaModal" class="view-gallery">
+                                <i class="fas fa-images"></i> Gallery
+                            </a>
                         </div>
                     </div>
                 </div>
