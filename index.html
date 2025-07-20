@@ -69,6 +69,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 0;
+            width: 100%;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         
         .logo {
@@ -76,11 +83,60 @@
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
+            position: relative;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            background: linear-gradient(90deg, #6e57e0, #2dd4bf, #10b981, #6e57e0);
+            background-size: 300% 100%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradient 8s linear infinite;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 8px;
+            padding: 2px;
+            background: linear-gradient(90deg, #6e57e0, #2dd4bf, #10b981, #6e57e0);
+            background-size: 300% 100%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: gradient 8s linear infinite;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        
+        .logo:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 300% 50%;
+            }
         }
         
         .nav-links {
             display: flex;
             gap: 2rem;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
         
         .nav-links a {
@@ -620,6 +676,10 @@
             .hero h1 {
                 font-size: 2.8rem;
             }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
         }
         
         @media (max-width: 768px) {
@@ -689,6 +749,10 @@
                 height: 50px;
                 font-size: 1.3rem;
             }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -697,7 +761,9 @@
     <header>
         <div class="container">
             <nav>
-                <a href="#" class="logo">Franco's Arts</a>
+                <div class="logo-container">
+                    <a href="#" class="logo">Franco's Arts</a>
+                </div>
                 <div class="nav-links">
                     <a href="#home">Home</a>
                     <a href="#about">About</a>
@@ -810,10 +876,10 @@
                     </div>
                     <div class="project-info">
                         <h3>The Mansion</h3>
-                        <p>A detailed mansion level with environmental storytelling elements.</p>
+                        <p>A detailed mansion level with horror, jumpscare elements.</p>
                         <div class="project-tags">
                             <span class="project-tag">Level Design</span>
-                            <span class="project-tag">Unreal Engine</span>
+                            <span class="project-tag">Unity</span>
                         </div>
                         <div class="project-links">
                             <a href="#theMansionModal" class="view-gallery">
@@ -831,9 +897,9 @@
                     <div class="project-info">
                         <h3>Eastern Front</h3>
                         <p class="project-subtitle">Bachelor's Project</p>
-                        <p>War-themed level with strategic combat scenarios.</p>
+                        <p>World War 2 themed level with a combat scenario.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Combat Design</span>
+                            <span class="project-tag">Level Design</span>
                             <span class="project-tag">Unity</span>
                         </div>
                         <div class="project-links">
@@ -855,8 +921,8 @@
                         <p class="project-subtitle">Dissertation Project</p>
                         <p>Authentic Mediterranean city environment with narrow streets and enterable buildings.</p>
                         <div class="project-tags">
-                            <span class="project-tag">Environment</span>
-                            <span class="project-tag">WIP</span>
+                            <span class="project-tag">Unreal Engine</span>
+                            <span class="project-tag">Level Design</span>
                         </div>
                         <div class="project-links">
                             <a href="#mediterraneanModal" class="view-gallery">
@@ -1023,6 +1089,79 @@
             element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             observer.observe(element);
         });
+        
+        // Easter egg for logo
+        const logo = document.querySelector('.logo');
+        let clickCount = 0;
+        
+        logo.addEventListener('click', () => {
+            clickCount++;
+            
+            if (clickCount === 5) {
+                // Create colorful particles
+                for (let i = 0; i < 50; i++) {
+                    createParticle();
+                }
+                
+                // Reset counter after a delay
+                setTimeout(() => {
+                    clickCount = 0;
+                }, 3000);
+            }
+        });
+        
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '10px';
+            particle.style.height = '10px';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            
+            // Random position near the logo
+            const logoRect = logo.getBoundingClientRect();
+            const x = logoRect.left + logoRect.width / 2 + (Math.random() - 0.5) * 100;
+            const y = logoRect.top + logoRect.height / 2 + (Math.random() - 0.5) * 100;
+            
+            particle.style.left = `${x}px`;
+            particle.style.top = `${y}px`;
+            
+            // Random color from gradient
+            const colors = ['#6e57e0', '#2dd4bf', '#10b981'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.backgroundColor = color;
+            
+            document.body.appendChild(particle);
+            
+            // Animate particle
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = 2 + Math.random() * 3;
+            const lifetime = 1000 + Math.random() * 1000;
+            
+            let startTime = Date.now();
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = elapsed / lifetime;
+                
+                if (progress >= 1) {
+                    particle.remove();
+                    return;
+                }
+                
+                const distance = velocity * elapsed / 20;
+                const currentX = x + Math.cos(angle) * distance;
+                const currentY = y + Math.sin(angle) * distance;
+                
+                particle.style.left = `${currentX}px`;
+                particle.style.top = `${currentY}px`;
+                particle.style.opacity = 1 - progress;
+                
+                requestAnimationFrame(animate);
+            }
+            
+            requestAnimationFrame(animate);
+        }
     </script>
 </body>
 </html>
