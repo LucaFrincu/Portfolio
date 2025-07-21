@@ -398,10 +398,14 @@
             text-decoration: none;
             box-shadow: var(--shadow-lg);
             z-index: 999;
-            display: flex;
+            display: none;
             align-items: center;
             gap: 0.5rem;
             transition: var(--transition);
+        }
+
+        .floating-cv.show {
+            display: flex;
         }
         
         .floating-cv:hover {
@@ -1090,6 +1094,24 @@
         
         // Set current year in footer
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Show floating CV button after hero CV is out of view
+        const heroCv = document.querySelector('.btn-cv');
+        const floatingCv = document.querySelector('.floating-cv');
+
+        const cvObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    floatingCv.classList.remove('show');
+                } else {
+                    floatingCv.classList.add('show');
+                }
+            });
+        });
+
+        if (heroCv) {
+            cvObserver.observe(heroCv);
+        }
         
         // Intersection Observer for scroll animations
         const fadeElements = document.querySelectorAll('.fade-in');
