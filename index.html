@@ -571,9 +571,6 @@
               <a href="https://gravitylens.itch.io/boba-for-bobers" target="_blank" class="btn-secondary">
                 <i class="fas fa-gamepad"></i> Play Game
               </a>
-              <button class="btn-secondary">
-                <i class="fas fa-images"></i> Gallery
-              </button>
             </div>
           </div>
         </div>
@@ -591,7 +588,7 @@
               <span class="project-tag">Arcade</span>
             </div>
             <div class="project-links">
-              <button class="btn-secondary">
+              <button class="view-gallery btn-secondary">
                 <i class="fas fa-images"></i> View Gallery
               </button>
             </div>
@@ -673,6 +670,22 @@
         <div class="gallery-item"><img src="media/EasternFront/013.png" alt=""></div>
         <div class="gallery-item"><img src="media/EasternFront/014.png" alt=""></div>
         <div class="gallery-item"><img src="media/EasternFront/016.png" alt=""></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROCKETEER GALLERY MODAL -->
+  <div id="rocketeerModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h3>Rocketeer — Captures</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item video"><video src="media/Rocketeer/movie_001.mp4" preload="metadata"></video></div>
+        <div class="gallery-item"><img src="media/Rocketeer/image_001_0000.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Rocketeer/image_002_0000.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Rocketeer/image_005_0000.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Rocketeer/image_006_0000.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Rocketeer/image_009_0000.jpg" alt=""></div>
       </div>
     </div>
   </div>
@@ -796,6 +809,7 @@
     // BUILD PER-GALLERY DATA
     const mansionEls = Array.from(document.querySelectorAll('#mansionModal .gallery-item'));
     const easternEls = Array.from(document.querySelectorAll('#easternFrontModal .gallery-item'));
+    const rocketeerEls = Array.from(document.querySelectorAll('#rocketeerModal .gallery-item'));
     function makeItems(arr){
       return arr.map(el =>
         el.classList.contains('video')
@@ -805,11 +819,13 @@
     }
     const mansionItems = makeItems(mansionEls);
     const easternItems = makeItems(easternEls);
+    const rocketeerItems = makeItems(rocketeerEls);
 
     // OPEN/CLOSE MODALS
-    const [mansionBtn, easternBtn] = Array.from(document.querySelectorAll('.view-gallery'));
+    const [mansionBtn, easternBtn, rocketeerBtn] = Array.from(document.querySelectorAll('.view-gallery'));
     const mansionModal = document.getElementById('mansionModal');
     const easternModal = document.getElementById('easternFrontModal');
+    const rocketeerModal = document.getElementById('rocketeerModal');
     function setupModal(modal){
       const closeBtn = modal.querySelector('.modal-close');
       const videos = modal.querySelectorAll('video');
@@ -826,8 +842,10 @@
     }
     setupModal(mansionModal);
     setupModal(easternModal);
+    setupModal(rocketeerModal);
     mansionBtn.addEventListener('click', ()=> mansionModal.classList.add('show'));
     easternBtn.addEventListener('click', ()=> easternModal.classList.add('show'));
+    rocketeerBtn.addEventListener('click', ()=> rocketeerModal.classList.add('show'));
 
     // NAVIGABLE LIGHTBOX
     const lightbox  = document.getElementById('lightboxModal');
@@ -857,6 +875,7 @@
 
     mansionEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(mansionItems,i)));
     easternEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(easternItems,i)));
+    rocketeerEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(rocketeerItems,i)));
 
     lbClose.addEventListener('click', ()=>{
       const v=lbBody.querySelector('video'); if(v){v.pause();v.currentTime=0;}
