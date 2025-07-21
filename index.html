@@ -107,6 +107,16 @@
       background:linear-gradient(135deg,rgba(110,87,224,.1)0%,rgba(45,212,191,.1)100%);
       z-index:-1;
     }
+    .hero-slideshow {
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      z-index:-2; pointer-events:none;
+    }
+    .hero-slideshow img {
+      position:absolute; top:0; left:0; width:100%; height:100%;
+      object-fit:cover; opacity:0; transition:opacity 1s ease-in-out;
+      filter:brightness(.6);
+    }
+    .hero-slideshow img.active { opacity:1; }
     .hero-text { max-width:800px; margin:0 auto; }
     .hero h1 {
       font-size:3.5rem; margin-bottom:1rem; line-height:1.2;
@@ -418,6 +428,26 @@
 
   <!-- HERO -->
   <section id="home" class="hero">
+    <div class="hero-slideshow">
+      <img src="Slideshow/slide1.jpg" class="active" alt="">
+      <img src="Slideshow/slide2.jpg" alt="">
+      <img src="Slideshow/slide3.jpg" alt="">
+      <img src="Slideshow/slide4.jpg" alt="">
+      <img src="Slideshow/slide5.jpg" alt="">
+      <img src="Slideshow/slide6.jpg" alt="">
+      <img src="Slideshow/slide7.jpg" alt="">
+      <img src="Slideshow/slide8.jpg" alt="">
+      <img src="Slideshow/slide9.jpg" alt="">
+      <img src="Slideshow/slide10.jpg" alt="">
+      <img src="Slideshow/slide11.jpg" alt="">
+      <img src="Slideshow/slide12.jpg" alt="">
+      <img src="Slideshow/slide13.jpg" alt="">
+      <img src="Slideshow/slide14.jpg" alt="">
+      <img src="Slideshow/slide15.jpg" alt="">
+      <img src="Slideshow/slide16.jpg" alt="">
+      <img src="Slideshow/slide17.jpg" alt="">
+      <img src="Slideshow/slide18.jpg" alt="">
+    </div>
     <div class="container hero-text fade-in">
       <h1>Hi, I'm <span>Luca Frincu</span></h1>
       <p>Game & Level Designer passionate about creating immersive worlds and engaging gameplay experiences.</p>
@@ -766,6 +796,15 @@
         window.scrollTo({ top: tgt.offsetTop - 80, behavior: 'smooth' });
       });
     });
+
+    // HERO SLIDESHOW
+    const heroSlides = document.querySelectorAll('.hero-slideshow img');
+    let slideIdx = 0;
+    setInterval(() => {
+      heroSlides[slideIdx].classList.remove('active');
+      slideIdx = (slideIdx + 1) % heroSlides.length;
+      heroSlides[slideIdx].classList.add('active');
+    }, 6000);
 
     // BACK TO TOP
     const backBtn = document.getElementById('backToTop');
