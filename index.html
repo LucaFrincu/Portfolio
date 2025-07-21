@@ -18,19 +18,19 @@
       --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
       --shadow-xl: 0 20px 25px rgba(0,0,0,0.1);
     }
-    * { margin:0; padding:0; box‑sizing:border‑box; }
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font‑family:'Segoe UI',Tahoma,sans-serif;
+      font-family:'Segoe UI',Tahoma,sans-serif;
       background: var(--light);
       color: var(--dark);
       transition: var(--transition);
     }
     body.dark-mode { background: var(--darker); color: var(--light); }
-    .container { max‑width:1200px; margin:0 auto; padding:0 2rem; }
+    .container { max-width:1200px; margin:0 auto; padding:0 2rem; }
 
     /* HEADER & NAV */
     header {
-      position:fixed; top:0; left:0; right:0; z‑index:1000;
+      position:fixed; top:0; left:0; right:0; z-index:1000;
       background:rgba(255,255,255,.9);
       box-shadow:var(--shadow);
       transition:var(--transition);
@@ -306,6 +306,24 @@
       width:80px; height:4px; background:var(--primary); border-radius:2px;
     }
     .section-title p { color:var(--gray); max-width:700px; margin:0 auto; }
+    .about-content {
+      background:#fff;
+      padding:2rem;
+      border-radius:8px;
+      box-shadow:var(--shadow-lg);
+      line-height:1.6;
+    }
+    body.dark-mode .about-content {
+      background:var(--dark);
+    }
+    .skills { margin-top:2rem; }
+    .skills-list {
+      display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center;
+    }
+    .skill {
+      background:var(--primary); color:#fff;
+      padding:.4rem .8rem; border-radius:20px; font-size:.9rem;
+    }
     footer {
       background:var(--darker); color:#fff; padding:3rem 0; text-align:center;
     }
@@ -567,7 +585,7 @@
           </div>
           <div class="project-info">
             <h3>Rocketeer</h3>
-            <p>A fast‑paced arcade prototype where you pilot a jetpack through dynamic obstacle courses.</p>
+            <p>A fast-paced arcade prototype where you pilot a jetpack through dynamic obstacle courses.</p>
             <div class="project-tags">
               <span class="project-tag">Prototype</span>
               <span class="project-tag">Arcade</span>
@@ -757,7 +775,7 @@
       }).observe(heroCv);
     }
 
-    // FADE‑IN
+    // FADE-IN
     const fadeEls = document.querySelectorAll('.fade-in');
     fadeEls.forEach(el => {
       el.style.opacity = 0;
@@ -775,7 +793,7 @@
     }, { threshold: .1 });
     fadeEls.forEach(el => fadeObserver.observe(el));
 
-    // BUILD PER‑GALLERY DATA
+    // BUILD PER-GALLERY DATA
     const mansionEls = Array.from(document.querySelectorAll('#mansionModal .gallery-item'));
     const easternEls = Array.from(document.querySelectorAll('#easternFrontModal .gallery-item'));
     function makeItems(arr){
