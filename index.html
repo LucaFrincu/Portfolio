@@ -578,7 +578,7 @@
               <span class="project-tag">Level Design</span>
             </div>
             <div class="project-links">
-              <button class="btn-secondary">
+              <button class="view-gallery btn-secondary">
                 <i class="fas fa-images"></i> View Gallery
               </button>
             </div>
@@ -700,6 +700,35 @@
         <div class="gallery-item"><img src="media/EasternFront/013.png" alt=""></div>
         <div class="gallery-item"><img src="media/EasternFront/014.png" alt=""></div>
         <div class="gallery-item"><img src="media/EasternFront/016.png" alt=""></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MEDITERRANEAN CITY GALLERY MODAL -->
+  <div id="mediterraneanModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h3>Mediterranean City — Captures</h3>
+      <div class="gallery-grid">
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean1.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean2.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean3.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean4.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean5.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean6.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean7.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean8.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean9.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean10.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean11.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean12.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean13.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean14.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean15.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean16.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean17.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean18.jpg" alt=""></div>
+        <div class="gallery-item"><img src="media/Mediterranean/Mediterranean19.jpg" alt=""></div>
       </div>
     </div>
   </div>
@@ -848,6 +877,7 @@
     // BUILD PER-GALLERY DATA
     const mansionEls = Array.from(document.querySelectorAll('#mansionModal .gallery-item'));
     const easternEls = Array.from(document.querySelectorAll('#easternFrontModal .gallery-item'));
+    const mediterraneanEls = Array.from(document.querySelectorAll('#mediterraneanModal .gallery-item'));
     const rocketeerEls = Array.from(document.querySelectorAll('#rocketeerModal .gallery-item'));
     function makeItems(arr){
       return arr.map(el =>
@@ -858,12 +888,14 @@
     }
     const mansionItems = makeItems(mansionEls);
     const easternItems = makeItems(easternEls);
+    const mediterraneanItems = makeItems(mediterraneanEls);
     const rocketeerItems = makeItems(rocketeerEls);
 
     // OPEN/CLOSE MODALS
-    const [mansionBtn, easternBtn, rocketeerBtn] = Array.from(document.querySelectorAll('.view-gallery'));
+    const [mansionBtn, easternBtn, mediterraneanBtn, rocketeerBtn] = Array.from(document.querySelectorAll('.view-gallery'));
     const mansionModal = document.getElementById('mansionModal');
     const easternModal = document.getElementById('easternFrontModal');
+    const mediterraneanModal = document.getElementById('mediterraneanModal');
     const rocketeerModal = document.getElementById('rocketeerModal');
     function setupModal(modal){
       const closeBtn = modal.querySelector('.modal-close');
@@ -881,9 +913,11 @@
     }
     setupModal(mansionModal);
     setupModal(easternModal);
+    setupModal(mediterraneanModal);
     setupModal(rocketeerModal);
     mansionBtn.addEventListener('click', ()=> mansionModal.classList.add('show'));
     easternBtn.addEventListener('click', ()=> easternModal.classList.add('show'));
+    mediterraneanBtn.addEventListener('click', ()=> mediterraneanModal.classList.add('show'));
     rocketeerBtn.addEventListener('click', ()=> rocketeerModal.classList.add('show'));
 
     // NAVIGABLE LIGHTBOX
@@ -914,6 +948,7 @@
 
     mansionEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(mansionItems,i)));
     easternEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(easternItems,i)));
+    mediterraneanEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(mediterraneanItems,i)));
     rocketeerEls.forEach((el,i)=> el.addEventListener('click', ()=> showLightbox(rocketeerItems,i)));
 
     lbClose.addEventListener('click', ()=>{
