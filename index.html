@@ -336,14 +336,16 @@
       overflow:hidden;
     }
     .viewer-media-inner img,
-    .viewer-media-inner video {
+    .viewer-media-inner video,
+    .viewer-media-inner iframe {
       width:100%; height:100%;
       max-height:58vh;
       object-fit:contain;
       border-radius:14px;
       box-shadow:0 25px 60px rgba(15,23,42,.45);
     }
-    .viewer-media video { background:#000; }
+    .viewer-media video,
+    .viewer-media iframe { background:#000; }
     .viewer-media:focus-visible {
       box-shadow:0 0 0 3px rgba(45,212,191,.55);
     }
@@ -858,7 +860,12 @@
       </div>
       <div class="viewer-thumbs">
         <div class="gallery-grid">
-  <div class="gallery-item video"><video src="media/mansion/Movie_001-Trim.mp4" preload="metadata" muted playsinline></video></div>
+  <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/yM2Qp_t-cMM?rel=0&amp;modestbranding=1" data-video-alt="The Mansion Part 1 playthrough">
+    <img src="https://img.youtube.com/vi/yM2Qp_t-cMM/hqdefault.jpg" alt="The Mansion Part 1 playthrough thumbnail">
+  </div>
+  <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/TObnrVx2PMU?rel=0&amp;modestbranding=1" data-video-alt="The Mansion Part 2 playthrough">
+    <img src="https://img.youtube.com/vi/TObnrVx2PMU/hqdefault.jpg" alt="The Mansion Part 2 playthrough thumbnail">
+  </div>
   <div class="gallery-item"><img src="media/mansion/Image Sequence_001_0000.webp" alt=""></div>
   <div class="gallery-item"><img src="media/mansion/Image Sequence_002_0000.webp" alt=""></div>
   <div class="gallery-item"><img src="media/mansion/Image Sequence_003_0000.webp" alt=""></div>
@@ -927,8 +934,12 @@
       </div>
       <div class="viewer-thumbs">
         <div class="gallery-grid">
-  <div class="gallery-item video"><video src="media/EasternFront/Movie_003-Trim.mp4" preload="metadata" muted playsinline></video></div>
-  <div class="gallery-item video"><video src="media/EasternFront/Movie_007.mp4" preload="metadata" muted playsinline></video></div>
+  <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/lUbD7didUqM?rel=0&amp;modestbranding=1" data-video-alt="Eastern Front playthrough">
+    <img src="https://img.youtube.com/vi/lUbD7didUqM/hqdefault.jpg" alt="Eastern Front playthrough thumbnail">
+  </div>
+  <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/1u7gR3TBfoY?rel=0&amp;modestbranding=1" data-video-alt="Eastern Front scenery showcase">
+    <img src="https://img.youtube.com/vi/1u7gR3TBfoY/hqdefault.jpg" alt="Eastern Front scenery showcase thumbnail">
+  </div>
   <div class="gallery-item"><img src="media/EasternFront/001.webp" alt=""></div>
   <div class="gallery-item"><img src="media/EasternFront/002.webp" alt=""></div>
   <div class="gallery-item"><img src="media/EasternFront/003.webp" alt=""></div>
@@ -975,8 +986,12 @@
       </div>
       <div class="viewer-thumbs">
   <div class="gallery-grid">
-  <div class="gallery-item video"><video src="media/Mediterranean/Trailer_EchoesofVacio.webm" preload="metadata" muted playsinline></video></div>
-  <div class="gallery-item video"><video src="media/Mediterranean/EchoesOfVacio_Playthrough.mp4" preload="metadata"></video></div>
+  <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/ONciQkd1aGE?rel=0&amp;modestbranding=1" data-video-alt="Echoes of Vacio trailer">
+    <img src="https://img.youtube.com/vi/ONciQkd1aGE/hqdefault.jpg" alt="Echoes of Vacio trailer thumbnail">
+  </div>
+  <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/pu2XzN-5UsU?rel=0&amp;modestbranding=1" data-video-alt="Echoes of Vacio playthrough">
+    <img src="https://img.youtube.com/vi/pu2XzN-5UsU/hqdefault.jpg" alt="Echoes of Vacio playthrough thumbnail">
+  </div>
   <div class="gallery-item"><img src="media/Mediterranean/Med0.webp" alt=""></div>
   <div class="gallery-item"><img src="media/Mediterranean/Med01.webp" alt=""></div>
   <div class="gallery-item"><img src="media/Mediterranean/Med02.webp" alt=""></div>
@@ -1045,7 +1060,9 @@
       </div>
       <div class="viewer-thumbs">
         <div class="gallery-grid">
-    <div class="gallery-item video"><video src="media/Rocketeer/movie_001.mp4" preload="metadata"></video></div>
+    <div class="gallery-item video" data-video-type="youtube" data-video-src="https://www.youtube.com/embed/WXH4XPqhgA8?rel=0&amp;modestbranding=1" data-video-alt="Rocketeer prototype playthrough">
+      <img src="https://img.youtube.com/vi/WXH4XPqhgA8/hqdefault.jpg" alt="Rocketeer prototype playthrough thumbnail">
+    </div>
   <div class="gallery-item"><img src="media/Rocketeer/image_001_0000.webp" alt=""></div>
   <div class="gallery-item"><img src="media/Rocketeer/image_002_0000.webp" alt=""></div>
   <div class="gallery-item"><img src="media/Rocketeer/image_005_0000.webp" alt=""></div>
@@ -1199,26 +1216,50 @@
 
     const galleryRegistry = new Map();
 
+    function withAutoplay(src){
+      if(!src) return '';
+      return src.includes('autoplay=1') ? src : `${src}${src.includes('?') ? '&' : '?'}autoplay=1`;
+    }
+
+    function createMediaElement(item, { autoplay = false, lazy = false } = {}){
+      if(item.type === 'video'){
+        if(item.provider === 'youtube'){
+          const iframe = document.createElement('iframe');
+          const finalSrc = autoplay ? withAutoplay(item.src) : item.src;
+          if(finalSrc){ iframe.src = finalSrc; }
+          iframe.title = item.alt || 'Embedded video';
+          iframe.setAttribute('frameborder','0');
+          iframe.setAttribute('allowfullscreen','');
+          iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+          iframe.loading = lazy ? 'lazy' : 'eager';
+          iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+          return iframe;
+        }
+        const videoEl = document.createElement('video');
+        if(item.src){ videoEl.src = item.src; }
+        videoEl.controls = true;
+        videoEl.preload = 'auto';
+        videoEl.setAttribute('playsinline','');
+        if(autoplay){
+          videoEl.autoplay = true;
+          videoEl.play?.().catch(() => {});
+        }
+        return videoEl;
+      }
+      const img = document.createElement('img');
+      if(item.src){ img.src = item.src; }
+      img.alt = item.alt || '';
+      if(lazy){ img.loading = 'lazy'; }
+      return img;
+    }
+
     function showLightbox(items, idx){
       if(!items || !items.length) return;
       currentItems = items;
       currentIndex = (idx + items.length) % items.length;
       lbBody.innerHTML = '';
       const item = items[currentIndex];
-      let el;
-      if(item.type === 'video'){
-        el = document.createElement('video');
-        el.src = item.src;
-        el.controls = true;
-        el.autoplay = true;
-        el.preload = 'auto';
-        el.setAttribute('playsinline','');
-      } else {
-        el = document.createElement('img');
-        el.src = item.src;
-        el.alt = item.alt;
-        el.loading = 'lazy';
-      }
+      const el = createMediaElement(item, { autoplay: item.type === 'video', lazy: item.type !== 'video' });
       lbBody.appendChild(el);
       lightbox.classList.add('show');
       if(activeGallery && activeGallery.items === items){
@@ -1252,18 +1293,31 @@
       stage.setAttribute('role','region');
 
       const items = thumbs.map((thumb, idx) => {
+        const datasetAlt = (thumb.dataset.videoAlt || '').trim();
         if(thumb.classList.contains('video')){
+          const provider = thumb.dataset.videoType || 'html5';
+          if(provider === 'youtube'){
+            const src = (thumb.dataset.videoSrc || '').trim();
+            return {
+              type: 'video',
+              provider: 'youtube',
+              src,
+              alt: datasetAlt || `${titleText} video ${idx + 1}`
+            };
+          }
           const video = thumb.querySelector('video');
-          const src   = video.getAttribute('src');
+          const src   = video?.getAttribute('src') || '';
+          const alt   = datasetAlt || video?.getAttribute('aria-label') || `${titleText} video ${idx + 1}`;
           return {
             type: 'video',
+            provider: 'html5',
             src,
-            alt: video.getAttribute('aria-label') || `${titleText} video ${idx + 1}`
+            alt: alt.trim()
           };
         }
         const img = thumb.querySelector('img');
-        const src = img.getAttribute('src');
-        const alt = (img.getAttribute('alt') || '').trim() || `${titleText} image ${idx + 1}`;
+        const src = img?.getAttribute('src') || '';
+        const alt = (img?.getAttribute('alt') || '').trim() || `${titleText} image ${idx + 1}`;
         return { type:'image', src, alt };
       });
 
@@ -1271,8 +1325,9 @@
         thumb.dataset.index = idx;
         thumb.setAttribute('tabindex','0');
         thumb.setAttribute('role','button');
+        const datasetAlt = (thumb.dataset.videoAlt || '').trim();
         const labelSource = thumb.classList.contains('video')
-          ? `${titleText} video ${idx + 1}`
+          ? (datasetAlt || `${titleText} video ${idx + 1}`)
           : ((thumb.querySelector('img')?.getAttribute('alt') || '').trim() || `${titleText} image ${idx + 1}`);
         thumb.setAttribute('aria-label', `Show ${labelSource}`);
         thumb.setAttribute('aria-current','false');
@@ -1296,20 +1351,7 @@
         activeIndex = (index + items.length) % items.length;
         stageInner.innerHTML = '';
         const data = items[activeIndex];
-        let mediaEl;
-        if(data.type === 'video'){
-          mediaEl = document.createElement('video');
-          mediaEl.src = data.src;
-          mediaEl.controls = true;
-          mediaEl.autoplay = true;
-          mediaEl.preload = 'auto';
-          mediaEl.setAttribute('playsinline','');
-        } else {
-          mediaEl = document.createElement('img');
-          mediaEl.src = data.src;
-          mediaEl.alt = data.alt;
-          mediaEl.loading = 'lazy';
-        }
+        const mediaEl = createMediaElement(data, { autoplay: data.type === 'video', lazy: data.type !== 'video' });
         stageInner.appendChild(mediaEl);
         stage.setAttribute('aria-label', `${data.alt}. Use left and right arrow keys to browse the gallery. Press Enter for full-screen.`);
         if(expandBtn){
@@ -1372,6 +1414,7 @@
       stage.addEventListener('click', e => {
         if(e.target.closest('.viewer-expand')) return;
         if(e.target.tagName === 'VIDEO' || e.target.closest('video')) return;
+        if(e.target.tagName === 'IFRAME' || e.target.closest('iframe')) return;
         activeGallery = galleryObj;
         showLightbox(items, activeIndex);
       });
